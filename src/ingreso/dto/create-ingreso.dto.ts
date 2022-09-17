@@ -8,4 +8,7 @@ import {
 
 export class CreateIngresoDto {
 
+  @IsString()
+  @IsNotEmpty()
+  rut: string;
 }

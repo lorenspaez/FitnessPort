@@ -1,5 +1,4 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, ParseIntPipe, UseGuards } from '@nestjs/common';
-import { GetUser } from '../auth/decorator';
 import { JwtGuard } from '../auth/guard';
 import { IngresoService } from './ingreso.service';
 import { CreateIngresoDto, UpdateIngresoDto} from './dto';
@@ -11,12 +10,9 @@ export class IngresoController {
 
   @Post()
   createIngreso(
-    @GetUser('id') userId: number,
-    @GetUser('name') userName: string,
-    alertCategoryName: string,
-    @Body() dto: CreateIngresoDto,
+    customerRut: string
   ) {
-    return this.ingresoService.createIngreso(dto);
+    return this.ingresoService.createIngreso(customerRut);
   }
 
   @Get()
@@ -26,24 +22,23 @@ export class IngresoController {
 
   @Get(':id')
   getIngresoById(
-    @Param('id', ParseIntPipe) alertId: number,
+    @Param('id', ParseIntPipe) ingresoId: number,
   ) {
-    return this.ingresoService.getIngresoById(alertId);
+    return this.ingresoService.getIngresoById(ingresoId);
   }
 
-  @Patch('key/:alertKey')
-  editIngresoByKey(
-    @Param('alertKey') alertKey: string,
-    @Body() dto: UpdateIngresoDto,
+  @Get('customer')
+  getIngresosByRut(
+    rut: string,
   ) {
-    return this.ingresoService.editIngresoByKey(alertKey, dto);
+    return this.ingresoService.getIngresosByRut(rut);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
-  @Delete('key/:alertKey')
+  @Delete(':id')
   deleteIngresoByKey(
-    @Param('alertKey') alertKey: string,
+    @Param('id', ParseIntPipe) ingresoId: number,
   ) {
-    return this.ingresoService.deleteIngreso(alertKey);
+    return this.ingresoService.deleteIngreso(ingresoId);
   }
 }

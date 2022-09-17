@@ -10,17 +10,24 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private userService: UserService) {}
 
+  @Get(':rut')
+  getUserByRut(
+    @Param('rut') rut: string
+  ){
+    return this.userService.getUserByRut(rut);
+  }
+
   @Get()
-  getAllUserss() {
+  getAllUsers() {
     return this.userService.getAllUsers();
   }
     
-  @Patch('edit')
+  @Patch('edit/:rut')
   editUser(
-    @GetUser('id') userId: number, 
+    @Param('rut') rut: string,
     @Body() dto: EditUserDto
     ) {
-    return this.userService.editUser(userId, dto);
+    return this.userService.editUser(rut, dto);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)

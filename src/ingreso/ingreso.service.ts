@@ -7,8 +7,26 @@ import { PrismaService } from '../prisma/prisma.service';
 export class IngresoService {
   constructor(private prisma: PrismaService) {}
 
-  async createIngreso(dto){
+  async createIngreso(customerRut: string){
+    const customer = await this.prisma.customer.findUnique({
+      where:{
+        rut: customerRut
+      },
+    });
 
+    const ingreso = await this.prisma.ingreso.create({
+      data:{
+        customerId: customer.id,
+        customerName: customer.name,
+        customerRut: customer.rut
+      },
+    });
+
+    delete ingreso.updatedAt;
+    delete ingreso.id;
+    delete ingreso.customerId;
+
+    return ingreso;
   }
 
   getAllIngresos() {
@@ -28,14 +46,26 @@ export class IngresoService {
     });
   }
 
-  async editIngresoByKey(
-    IngresoKey: string,
-    dto: UpdateIngresoDto,
+  getIngresosByRut(
+    Rut: string,
   ) {
+    return this.prisma.ingreso.findMany({
+      where: {
+        customerRut: Rut
+      },
+    });
   }
 
-  async deleteIngreso(
-    alertKey: string,
-  ) {
+  getTodayIngresos(){
+    
   }
+
+  async deleteIngreso(ingresoId: number) {
+    return await this.prisma.ingreso.delete({
+      where:{
+        id: ingresoId
+      },
+    });
+  }
+
 }

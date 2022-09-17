@@ -6,6 +6,16 @@ import { EditUserDto} from './dto';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
+  async getUserByRut(
+    userRut: string
+  ){
+    return this.prisma.user.findFirst({
+      where:{
+        rut: userRut
+      }
+    });
+  }
+
   async getAllUsers() {
     return this.prisma.user.findMany({
       where: {
@@ -14,12 +24,12 @@ export class UserService {
   }
 
   async editUser(
-    userId: number,
+    userRut: string,
     dto: EditUserDto,
   ) {
     const user = await this.prisma.user.update({
       where: {
-        id: userId,
+        rut: userRut,
       },
       data: {
         ...dto,

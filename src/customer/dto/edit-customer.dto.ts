@@ -1,11 +1,10 @@
 import {
-    IsBoolean,
     IsEmail,
     IsOptional,
     IsString,
   } from 'class-validator';
   
-  export class EditUserDto {
+  export class EditCustomerDto {
     @IsEmail()
     @IsOptional()
     email?: string;
@@ -16,6 +15,11 @@ import {
 
     @IsString()
     @IsOptional()
-    photo?: string;
+    rut?: string;
+
+    @IsString()
+    @IsOptional()
+    planType?: string;
+
   }
   
