@@ -4,6 +4,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { IngresoModule } from './ingreso/ingreso.module';
+import { CustomerModule } from './customer/customer.module';
 
 
 @Module({
@@ -14,7 +15,8 @@ import { IngresoModule } from './ingreso/ingreso.module';
     UserModule,
     AuthModule,
     PrismaModule,
-    IngresoModule],
+    IngresoModule,
+    CustomerModule],
   controllers: [],
   providers: [],
 })

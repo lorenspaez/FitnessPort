@@ -10,5 +10,5 @@ export class CreateIngresoDto {
 
   @IsString()
   @IsNotEmpty()
-  rut: string;
+  customerRut: string;
 }

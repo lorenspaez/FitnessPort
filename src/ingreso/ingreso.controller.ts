@@ -10,9 +10,9 @@ export class IngresoController {
 
   @Post()
   createIngreso(
-    customerRut: string
+    @Body() dto: CreateIngresoDto
   ) {
-    return this.ingresoService.createIngreso(customerRut);
+    return this.ingresoService.createIngreso(dto);
   }
 
   @Get()
@@ -27,11 +27,16 @@ export class IngresoController {
     return this.ingresoService.getIngresoById(ingresoId);
   }
 
-  @Get('customer')
+  @Get('today')
+  getTodayIngresos(){
+    return this.ingresoService.getTodayIngresos();
+  }
+
+  @Get('customer/:customerRut')
   getIngresosByRut(
-    rut: string,
+    @Param('customerRut') customerRut: string,
   ) {
-    return this.ingresoService.getIngresosByRut(rut);
+    return this.ingresoService.getIngresosByRut(customerRut);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)

@@ -7,26 +7,29 @@ import { PrismaService } from '../prisma/prisma.service';
 export class IngresoService {
   constructor(private prisma: PrismaService) {}
 
-  async createIngreso(customerRut: string){
-    const customer = await this.prisma.customer.findUnique({
-      where:{
-        rut: customerRut
-      },
-    });
+  async createIngreso(dto: CreateIngresoDto){
 
     const ingreso = await this.prisma.ingreso.create({
       data:{
-        customerId: customer.id,
-        customerName: customer.name,
-        customerRut: customer.rut
+        ...dto
       },
     });
 
-    delete ingreso.updatedAt;
-    delete ingreso.id;
-    delete ingreso.customerId;
+    const customer = await this.prisma.customer.findUnique({
+      where:{
+        rut: ingreso.customerRut
+      },
+    });
 
-    return ingreso;
+    return await this.prisma.ingreso.update({
+      where:{
+        id: ingreso.id
+      },
+      data:{
+        customerId: customer.id,
+        customerName: customer.name
+      },
+    });
   }
 
   getAllIngresos() {
@@ -56,8 +59,15 @@ export class IngresoService {
     });
   }
 
-  getTodayIngresos(){
-    
+  async getTodayIngresos(){
+    return await this.prisma.ingreso.findMany({
+      /*take: 10*()*/
+      where:{
+        createdAt:{
+          gte: '2022'
+        }
+      }
+    })
   }
 
   async deleteIngreso(ingresoId: number) {

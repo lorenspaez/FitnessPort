@@ -30,9 +30,9 @@ CREATE TABLE "ingresos" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "customerId" INTEGER NOT NULL,
+    "customerId" INTEGER,
     "customerRut" TEXT NOT NULL,
-    "customerName" TEXT NOT NULL,
+    "customerName" TEXT,
 
     CONSTRAINT "ingresos_pkey" PRIMARY KEY ("id")
 );
@@ -50,4 +50,4 @@ CREATE UNIQUE INDEX "customers_email_key" ON "customers"("email");
 CREATE UNIQUE INDEX "customers_rut_key" ON "customers"("rut");
 
 -- AddForeignKey
-ALTER TABLE "ingresos" ADD CONSTRAINT "ingresos_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "customers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ingresos" ADD CONSTRAINT "ingresos_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "customers"("id") ON DELETE SET NULL ON UPDATE CASCADE;
