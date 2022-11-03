@@ -15,7 +15,7 @@ export class IngresoService {
       },
     });
 
-    if(customer.id == null){
+    if(!customer){
       throw new ForbiddenException(
         'Ese RUT no esta registrado',
       );
@@ -26,7 +26,7 @@ export class IngresoService {
         data:{
           customerId: customer.id,
           customerName: customer.name,
-          //correctAccess: true,
+          correctAccess: true,
           ...dto
         },
       });  
@@ -36,7 +36,7 @@ export class IngresoService {
       data:{
         customerId: customer.id,
         customerName: customer.name,
-        //correctAccess: false,
+        correctAccess: false,
         ...dto
       },
     });        
@@ -45,6 +45,9 @@ export class IngresoService {
   getAllIngresos() {
     return this.prisma.ingreso.findMany({
       where: {
+      },
+      orderBy:{
+        createdAt: 'asc'
       },
     });
   }
