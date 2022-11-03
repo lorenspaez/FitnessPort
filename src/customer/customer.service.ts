@@ -17,7 +17,7 @@ export class CustomerService {
   async getCustomerByRut(
     customerRut: string
   ){
-    /*const customer = await this.prisma.customer.findUnique({
+    const customer = await this.prisma.customer.findFirst({
       where:{
         rut: customerRut,
       },
@@ -27,7 +27,7 @@ export class CustomerService {
       throw new ForbiddenException(
         'No existe un cliente con ese RUT',
       );
-    }*/
+    }
 
     return this.prisma.customer.findFirst({
       where:{
@@ -55,13 +55,20 @@ export class CustomerService {
         ...dto,
       },
     });
+  await this.prisma.ingreso.updateMany({
+    where:{
+      customerId: customer.id,
+    },
+    data:{
+      customerName: customer.name,
+    }
+  })
     return customer;
   }
 
   async deleteCustomerByRut(
     customerRut: string
   ) {
-
     await this.prisma.customer.delete({
       where: {
         rut: customerRut,

@@ -9,27 +9,37 @@ export class IngresoService {
 
   async createIngreso(dto: CreateIngresoDto){
 
-    const ingreso = await this.prisma.ingreso.create({
-      data:{
-        ...dto
-      },
-    });
-
     const customer = await this.prisma.customer.findUnique({
       where:{
-        rut: ingreso.customerRut
+        rut: dto.customerRut
       },
     });
 
-    return await this.prisma.ingreso.update({
-      where:{
-        id: ingreso.id
-      },
+    if(customer.id == null){
+      throw new ForbiddenException(
+        'Ese RUT no esta registrado',
+      );
+    };
+
+    if(customer.isActive == true){
+      return await this.prisma.ingreso.create({
+        data:{
+          customerId: customer.id,
+          customerName: customer.name,
+          //correctAccess: true,
+          ...dto
+        },
+      });  
+    };
+
+    return await this.prisma.ingreso.create({
       data:{
         customerId: customer.id,
-        customerName: customer.name
+        customerName: customer.name,
+        //correctAccess: false,
+        ...dto
       },
-    });
+    });        
   }
 
   getAllIngresos() {
@@ -65,9 +75,9 @@ export class IngresoService {
       where:{
         createdAt:{
           gte: '2022'
-        }
-      }
-    })
+        },
+      },
+    });
   }
 
   async deleteIngreso(ingresoId: number) {
@@ -77,5 +87,4 @@ export class IngresoService {
       },
     });
   }
-
 }
