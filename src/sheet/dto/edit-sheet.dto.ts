@@ -15,6 +15,9 @@ export class EditSheetDto {
   sexo: string;
 
   @IsOptional()
+  imc: string;
+
+  @IsOptional()
   porcMusculo: string;
 
   @IsOptional()

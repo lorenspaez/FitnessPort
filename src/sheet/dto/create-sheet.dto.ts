@@ -21,6 +21,9 @@ export class CreateSheetDto {
   sexo: string;
 
   @IsOptional()
+  imc: string;
+
+  @IsOptional()
   porcMusculo: string;
 
   @IsOptional()
