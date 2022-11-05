@@ -60,8 +60,15 @@ model Sheet{
   customerRut String
   customerName String?
 
-  edad String
-  peso String
+  sexo String?
+  edad String?
+  peso String?
+  estatura String?
+  imc String?
+  porcGrasa String?
+  porcMusculo String?
+  grasaVisceral String?
+  calorias String?
 
   customer Customer? @relation(fields: [customerId], references: [id])
   @@map("sheets")

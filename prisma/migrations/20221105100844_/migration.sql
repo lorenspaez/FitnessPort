@@ -47,8 +47,15 @@ CREATE TABLE "sheets" (
     "customerId" INTEGER,
     "customerRut" TEXT NOT NULL,
     "customerName" TEXT,
-    "edad" TEXT NOT NULL,
-    "peso" TEXT NOT NULL,
+    "sexo" TEXT,
+    "edad" TEXT,
+    "peso" TEXT,
+    "estatura" TEXT,
+    "imc" TEXT,
+    "porcGrasa" TEXT,
+    "porcMusculo" TEXT,
+    "grasaVisceral" TEXT,
+    "calorias" TEXT,
 
     CONSTRAINT "sheets_pkey" PRIMARY KEY ("id")
 );
