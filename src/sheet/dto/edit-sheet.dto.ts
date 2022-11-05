@@ -6,10 +6,10 @@ import {
   
   export class EditSheetDto {
     @IsOptional()
-    peso: number;
+    peso: string;
   
     @IsOptional()
-    edad: number;
+    edad: string;
 
   }
   

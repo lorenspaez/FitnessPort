@@ -12,9 +12,9 @@ export class CreateSheetDto {
   customerRut: string;
 
   @IsOptional()
-  peso: number;
+  peso: string;
 
   @IsOptional()
-  edad: number;
+  edad: string;
 
 }
