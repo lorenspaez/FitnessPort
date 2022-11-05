@@ -40,17 +40,17 @@ CREATE TABLE "ingresos" (
 );
 
 -- CreateTable
-CREATE TABLE "fichas" (
+CREATE TABLE "sheets" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "customerId" INTEGER,
     "customerRut" TEXT NOT NULL,
     "customerName" TEXT,
-    "Edad" INTEGER NOT NULL,
-    "Peso" INTEGER NOT NULL,
+    "edad" INTEGER NOT NULL,
+    "peso" INTEGER NOT NULL,
 
-    CONSTRAINT "fichas_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "sheets_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -65,8 +65,11 @@ CREATE UNIQUE INDEX "customers_email_key" ON "customers"("email");
 -- CreateIndex
 CREATE UNIQUE INDEX "customers_rut_key" ON "customers"("rut");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "sheets_customerId_key" ON "sheets"("customerId");
+
 -- AddForeignKey
 ALTER TABLE "ingresos" ADD CONSTRAINT "ingresos_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "customers"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "fichas" ADD CONSTRAINT "fichas_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "customers"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "sheets" ADD CONSTRAINT "sheets_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "customers"("id") ON DELETE SET NULL ON UPDATE CASCADE;

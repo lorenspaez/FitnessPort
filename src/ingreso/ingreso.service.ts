@@ -47,7 +47,7 @@ export class IngresoService {
       where: {
       },
       orderBy:{
-        createdAt: 'asc'
+        createdAt: 'desc'
       },
     });
   }

@@ -34,7 +34,7 @@ export class AuthService {
       ) {
         if (error.code === 'P2002') {
           throw new ForbiddenException(
-            'El email ya está siendo utilizado',
+            'Estos datos ya están siendo utilizados',
           );
         }
       }

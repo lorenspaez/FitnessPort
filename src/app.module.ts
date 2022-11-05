@@ -5,7 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { IngresoModule } from './ingreso/ingreso.module';
 import { CustomerModule } from './customer/customer.module';
-
+import { SheetModule } from './sheet/sheet.module'
 
 @Module({
   imports: [
@@ -16,7 +16,8 @@ import { CustomerModule } from './customer/customer.module';
     AuthModule,
     PrismaModule,
     IngresoModule,
-    CustomerModule],
+    CustomerModule,
+    SheetModule],
   controllers: [],
   providers: [],
 })
