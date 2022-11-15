@@ -56,10 +56,13 @@ export class SheetService {
       );
     }
 
-    return this.prisma.sheet.findFirst({
+    return this.prisma.sheet.findMany({
       where:{
         customerRut: customerRut
-      }
+      },
+      orderBy:{
+        createdAt: 'desc'
+      },
     });
   }
 

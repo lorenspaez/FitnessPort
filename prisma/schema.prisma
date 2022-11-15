@@ -34,7 +34,7 @@ model Customer{
   planType String?
   paymentDate DateTime?
   ingresos Ingreso[]
-  ficha Sheet?
+  ficha Sheet[]
   isActive Boolean @default(false)
   @@map("customers")
 }

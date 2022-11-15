@@ -66,19 +66,25 @@ export class IngresoService {
     Rut: string,
   ) {
     return this.prisma.ingreso.findMany({
+      take: 30,
       where: {
         customerRut: Rut
+      },
+      orderBy:{
+        createdAt: 'desc'
       },
     });
   }
 
   async getTodayIngresos(){
     return await this.prisma.ingreso.findMany({
-      /*take: 10*()*/
       where:{
         createdAt:{
           gte: '2022'
         },
+      },
+      orderBy:{
+        createdAt: 'desc'
       },
     });
   }
