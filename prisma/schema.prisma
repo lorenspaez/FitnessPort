@@ -30,12 +30,20 @@ model Customer{
 
   email String @unique
   name String
+  nationality String
   rut String @unique
+  birthday String
+  address String
+  city String
   planType String?
-  paymentDate DateTime?
+  observation String?
+  objective String?
+  agreement String?
   ingresos Ingreso[]
-  ficha Sheet[]
+  pagos Pago[]
+  fichas Sheet[]
   isActive Boolean @default(false)
+
   @@map("customers")
 }
 
@@ -72,4 +80,24 @@ model Sheet{
 
   customer Customer? @relation(fields: [customerId], references: [id])
   @@map("sheets")
+}
+
+model Pago{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customerId Int? @unique
+  customerRut String
+  customerName String?
+  customerPlan String?
+  customerAgreement String?
+
+  montoPagado String
+  medioPago String
+  descuentoEmpresa String
+  vencimientoPago DateTime
+
+  customer Customer? @relation(fields: [customerId], references: [id])
+  @@map("pagos")
 }

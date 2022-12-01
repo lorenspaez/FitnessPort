@@ -20,7 +20,30 @@ export class CreateCustomerDto {
   rut: string;
 
   @IsString()
+  nationality: string;
+  
+  @IsString()
+  birthday: string;
+
+  @IsString()
+  address: string;
+
+  @IsString()
+  city: string;
+
+  @IsString()
   @IsOptional()
   planType?: string;
 
+  @IsString()
+  @IsOptional()
+  observation?: string;
+
+  @IsString()
+  @IsOptional()
+  objective?: string;
+
+  @IsString()
+  @IsOptional()
+  agreement?: string;
 }
