@@ -61,18 +61,12 @@ export class SheetService {
   }
 
   async editSheet(
-    customerRut: string,
+    sheetId: number,
     dto: EditSheetDto,
   ) {
-    const customer = await this.prisma.customer.findFirst({
-      where:{
-        rut: customerRut,
-      },
-    });
-
     return await this.prisma.sheet.update({
       where: {
-        customerId: customer.id,
+        id: sheetId,
       },
       data: {
         ...dto,
@@ -80,21 +74,15 @@ export class SheetService {
     });
   }
 
-  async deleteSheetByRut(
-    customerRut: string
+  async deleteSheetById(
+    sheetId: number
   ) {
-
-    const customer = await this.prisma.customer.findFirst({
-      where:{
-        rut: customerRut,
-      },
-    });
 
     await this.prisma.sheet.delete({
       where: {
-        customerId: customer.id,
+        id: sheetId,
       },
     });
-    return "Cliente eliminado";
+    return "Ficha eliminado";
   }
 }

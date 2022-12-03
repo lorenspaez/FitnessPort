@@ -1,4 +1,4 @@
-import { Post, Body,Controller,Get,Patch,UseGuards, Delete, HttpCode, HttpStatus, Param } from '@nestjs/common';
+import { Post, Body,Controller,Get,Patch,UseGuards, Delete, HttpCode,ParseIntPipe, HttpStatus, Param } from '@nestjs/common';
 import { JwtGuard } from '../auth/guard';
 import { CreateSheetDto, EditSheetDto} from './dto';
 import { SheetService } from './sheet.service';
@@ -27,19 +27,19 @@ export class SheetController {
     return this.sheetService.getAllSheets();
   }
     
-  @Patch('edit/:rut')
+  @Patch('edit/:id')
   editSheet(
-    @Param('rut') rut: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() dto: EditSheetDto
     ) {
-    return this.sheetService.editSheet(rut, dto);
+    return this.sheetService.editSheet(id, dto);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
-  @Delete(':rut')
+  @Delete(':id')
   deleteSheetByRut(
-    @Param('rut') rut: string
+    @Param('id', ParseIntPipe) id: number
     ) {
-    return this.sheetService.deleteSheetByRut(rut);
+    return this.sheetService.deleteSheetById(id);
   }
 }
