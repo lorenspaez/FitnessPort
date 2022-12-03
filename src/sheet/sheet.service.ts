@@ -19,19 +19,11 @@ export class SheetService {
         'No existe un cliente con ese RUT',
       );
     }
-
     const sheet = await this.prisma.sheet.findFirst({
       where:{
         customerId: customer.id,
       },
-    });
-
-    if (sheet != null){
-      throw new ForbiddenException(
-        'Este usuario ya tiene una Ficha',
-      );
-    }
-    
+    });    
     return await this.prisma.sheet.create({
       data:{
         customerId: customer.id,
