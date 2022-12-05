@@ -96,7 +96,7 @@ model Pago{
   montoPagado String
   medioPago String
   descuentoEmpresa String
-  vencimientoPago DateTime
+  vencimientoPago String
 
   customer Customer? @relation(fields: [customerId], references: [id])
   @@map("pagos")

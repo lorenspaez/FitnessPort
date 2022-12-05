@@ -20,5 +20,5 @@ export class CreatePagoDto {
   descuentoEmpresa: string;
 
   @IsNotEmpty()
-  vencimientoPago: Date;
+  vencimientoPago: string;
 }
