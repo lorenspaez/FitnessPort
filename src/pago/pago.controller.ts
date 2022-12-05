@@ -28,12 +28,12 @@ export class PagoController {
     return this.pagoService.getAllPagos();
   }
     
-  @Patch('edit/:rut')
+  @Patch('edit/:id')
   editPago(
-    @Param('rut') rut: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdatePagoDto
     ) {
-    return this.pagoService.editPago(rut, dto);
+    return this.pagoService.editPago(id, dto);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)

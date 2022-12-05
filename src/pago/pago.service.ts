@@ -62,18 +62,13 @@ export class PagoService {
   }
 
   async editPago(
-    customerRut: string,
+    pagoId: number,
     dto: UpdatePagoDto,
   ) {
-    const customer = await this.prisma.customer.findFirst({
-      where:{
-        rut: customerRut,
-      },
-    });
 
     return await this.prisma.pago.update({
       where: {
-        customerId: customer.id,
+        id: pagoId,
       },
       data: {
         ...dto,
