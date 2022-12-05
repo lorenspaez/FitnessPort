@@ -28,13 +28,13 @@ model Customer{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  email String @unique
+  email String?
   name String
-  nationality String
+  nationality String?
   rut String @unique
-  birthday String
-  address String
-  city String
+  birthday String?
+  address String?
+  city String?
   planType String?
   observation String?
   objective String?
@@ -93,10 +93,10 @@ model Pago{
   customerPlan String?
   customerAgreement String?
 
-  montoPagado String
-  medioPago String
-  descuentoEmpresa String
-  vencimientoPago String
+  montoPagado String?
+  medioPago String?
+  descuentoEmpresa String?
+  vencimientoPago String?
 
   customer Customer? @relation(fields: [customerId], references: [id])
   @@map("pagos")
