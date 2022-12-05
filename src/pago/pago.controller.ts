@@ -1,4 +1,4 @@
-import { Post, Body,Controller,Get,Patch,UseGuards, Delete, HttpCode, HttpStatus, Param } from '@nestjs/common';
+import { Post, Body,Controller,Get,Patch,UseGuards, Delete, HttpCode, HttpStatus, Param, ParseIntPipe } from '@nestjs/common';
 import { PagoService } from './pago.service';
 import { JwtGuard } from '../auth/guard';
 import { CreatePagoDto } from './dto/create-pago.dto';
@@ -37,10 +37,10 @@ export class PagoController {
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
-  @Delete(':rut')
+  @Delete(':id')
   deletePagoByRut(
-    @Param('rut') rut: string
+    @Param('id', ParseIntPipe) id: number
     ) {
-    return this.pagoService.deletePagoByRut(rut);
+    return this.pagoService.deletePagoByRut(id);
   }
 }

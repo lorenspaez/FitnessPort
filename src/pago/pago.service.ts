@@ -94,20 +94,12 @@ export class PagoService {
   }
 
   async deletePagoByRut(
-    customerRut: string
+    pagoId: number
   ) {
-
-    const customer = await this.prisma.customer.findFirst({
-      where:{
-        rut: customerRut,
-      },
-    });
-
-    await this.prisma.pago.delete({
+    return this.prisma.pago.delete({
       where: {
-        customerId: customer.id,
+        id: pagoId,
       },
     });
-    return "Cliente eliminado";
   }
 }
