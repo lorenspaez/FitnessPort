@@ -19,18 +19,6 @@ export class PagoService {
         'No existe un cliente con ese RUT',
       );
     }
-
-    const pago = await this.prisma.pago.findFirst({
-      where:{
-        customerId: customer.id,
-      },
-    });
-
-    if (pago != null){
-      throw new ForbiddenException(
-        'Este usuario ya tiene una Ficha',
-      );
-    }
     
     return await this.prisma.pago.create({
       data:{
