@@ -57,6 +57,9 @@ export class SheetService {
     return this.prisma.sheet.findMany({
       where: {
       },
+      orderBy:{
+        id: 'asc',
+      },
     });
   }
 

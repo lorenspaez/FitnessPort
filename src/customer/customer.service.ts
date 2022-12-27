@@ -40,6 +40,9 @@ export class CustomerService {
     return this.prisma.customer.findMany({
       where: {
       },
+      orderBy:{
+        id: 'asc',
+      },
     });
   }
 

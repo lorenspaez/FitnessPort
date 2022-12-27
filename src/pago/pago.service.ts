@@ -58,6 +58,9 @@ export class PagoService {
     return this.prisma.pago.findMany({
       where: {
       },
+      orderBy:{
+        id: 'asc',
+      },
     });
   }
 
