@@ -26,6 +26,9 @@ export class CreateCustomerDto {
   birthday: string;
 
   @IsString()
+  phone: string;
+
+  @IsString()
   address: string;
 
   @IsString()

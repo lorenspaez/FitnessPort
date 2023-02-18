@@ -35,6 +35,7 @@ model Customer{
   birthday String?
   address String?
   city String?
+  phone String?
   planType String?
   observation String?
   objective String?
