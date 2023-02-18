@@ -22,5 +22,8 @@ export class UpdatePagoDto extends PartialType(CreatePagoDto) {
   descuentoEmpresa: string;
 
   @IsNotEmpty()
+  fechaPago: string;
+
+  @IsNotEmpty()
   vencimientoPago: string;
 }

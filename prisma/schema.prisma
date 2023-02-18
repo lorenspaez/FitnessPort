@@ -94,6 +94,7 @@ model Pago{
   customerPlan String?
   customerAgreement String?
 
+  fechaPago String?
   montoPagado String?
   medioPago String?
   descuentoEmpresa String?
