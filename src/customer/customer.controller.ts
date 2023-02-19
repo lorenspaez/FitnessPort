@@ -27,12 +27,12 @@ export class CustomerController {
     return this.customerService.getAllCustomers();
   }
 
-  @Get()
+  @Get('actives')
   getActiveCustomers() {
     return this.customerService.getActiveCustomers();
   }
 
-  @Get()
+  @Get('inactives')
   getInactiveCustomers() {
     return this.customerService.getInactiveCustomers();
   }
