@@ -46,6 +46,28 @@ export class CustomerService {
     });
   }
 
+  async getActiveCustomers() {
+    return this.prisma.customer.findMany({
+      where: {
+        isActive: true,
+      },
+      orderBy:{
+        id: 'asc',
+      },
+    });
+  }
+
+  async getInactiveCustomers() {
+    return this.prisma.customer.findMany({
+      where: {
+        isActive: false,
+      },
+      orderBy:{
+        id: 'asc',
+      },
+    });
+  }
+
   async editCustomer(
     customerRut: string,
     dto: EditCustomerDto,

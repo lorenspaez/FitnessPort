@@ -26,6 +26,16 @@ export class CustomerController {
   getAllCustomers() {
     return this.customerService.getAllCustomers();
   }
+
+  @Get()
+  getActiveCustomers() {
+    return this.customerService.getActiveCustomers();
+  }
+
+  @Get()
+  getInactiveCustomers() {
+    return this.customerService.getInactiveCustomers();
+  }
     
   @Patch('edit/:rut')
   editCustomer(
