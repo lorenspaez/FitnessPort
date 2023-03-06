@@ -80,7 +80,8 @@ export class IngresoService {
     return await this.prisma.ingreso.findMany({
       where:{
         createdAt:{
-          gte: '2022'
+          gte: '2023-02-01',
+          
         },
       },
       orderBy:{
