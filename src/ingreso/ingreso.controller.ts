@@ -27,9 +27,14 @@ export class IngresoController {
     return this.ingresoService.getIngresoById(ingresoId);
   }
 
-  @Get('today')
+  @Get('fecha/today')
   getTodayIngresos(){
     return this.ingresoService.getTodayIngresos();
+  }
+
+  @Get('fecha/today')
+  getMonthlyIngresos(){
+    return this.ingresoService.getMonthlyIngresos();
   }
 
   @Get('customer/:customerRut')

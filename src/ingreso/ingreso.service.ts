@@ -77,10 +77,26 @@ export class IngresoService {
   }
 
   async getTodayIngresos(){
+    let today = new Date().toISOString().slice(0, 10)
     return await this.prisma.ingreso.findMany({
       where:{
         createdAt:{
-          gte: '2023-02-01',
+          gte: today,
+          
+        },
+      },
+      orderBy:{
+        createdAt: 'desc'
+      },
+    });
+  }
+
+  async getMonthlyIngresos(){
+    let month = new Date().toISOString().slice(0, 7)
+    return await this.prisma.ingreso.findMany({
+      where:{
+        createdAt:{
+          gte: month,
           
         },
       },
