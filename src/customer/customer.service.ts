@@ -60,6 +60,7 @@ export class CustomerService {
   async getInactiveCustomers() {
     return this.prisma.customer.findMany({
       where: {
+        isActive: false,
       },
       orderBy:{
         id: 'asc',
