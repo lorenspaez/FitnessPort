@@ -16,7 +16,7 @@ model User{
   updatedAt DateTime @updatedAt
 
   email String @unique
-  userName String @default("")
+  userName String @unique
   name String
   rut String @unique
   hash String
