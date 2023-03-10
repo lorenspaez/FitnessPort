@@ -32,7 +32,7 @@ export class IngresoController {
     return this.ingresoService.getTodayIngresos();
   }
 
-  @Get('fecha/today')
+  @Get('fecha/month')
   getMonthlyIngresos(){
     return this.ingresoService.getMonthlyIngresos();
   }

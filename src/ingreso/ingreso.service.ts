@@ -97,7 +97,6 @@ export class IngresoService {
       where:{
         createdAt:{
           gte: month,
-          
         },
       },
       orderBy:{
