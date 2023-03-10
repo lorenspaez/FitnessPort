@@ -20,12 +20,13 @@ export class AuthService {
       const user = await this.prisma.user.create({
         data: {
           name: dto.name,
+          userName: dto.userName,
           email: dto.email,
           rut: dto.rut,
           hash,
         },
       });
-      const tok = await this.signToken(user.id, user.email);
+      const tok = await this.signToken(user.id, user.userName);
       return {tok, user};
     } catch (error) {
       if (
@@ -47,13 +48,13 @@ export class AuthService {
     const user =
       await this.prisma.user.findUnique({
         where: {
-          email: dto.email,
+          userName: dto.userName,
         },
       });
     // if user does not exist throw exception
     if (!user)
       throw new ForbiddenException(
-        'Email no está registrado',
+        'Usuario no está registrado',
       );
     // compare password
     const pwMatches = await argon.verify(
@@ -65,17 +66,17 @@ export class AuthService {
       throw new ForbiddenException(
         'Contraseña incorrecta',
       );
-    const tok = await this.signToken(user.id, user.email);
+    const tok = await this.signToken(user.id, user.userName);
     return {tok, user};
   }
 
   async signToken(
     userId: number,
-    email: string,
+    userName: string,
   ): Promise<{ access_token: string }> {
     const payload = {
       sub: userId,
-      email,
+      userName,
     };
     const secret = this.config.get('JWT_SECRET');
 

@@ -16,6 +16,7 @@ model User{
   updatedAt DateTime @updatedAt
 
   email String @unique
+  userName String @unique
   name String
   rut String @unique
   hash String
@@ -94,6 +95,7 @@ model Pago{
   customerPlan String?
   customerAgreement String?
 
+  planPagado String?
   fechaPago String?
   montoPagado String?
   medioPago String?

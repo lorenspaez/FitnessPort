@@ -9,6 +9,10 @@ import {
     @IsEmail()
     @IsOptional()
     email?: string;
+
+    @IsString()
+    @IsOptional()
+    userName?: string;
   
     @IsString()
     @IsOptional()
