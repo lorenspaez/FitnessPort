@@ -32,6 +32,11 @@ export class IngresoController {
     return this.ingresoService.getTodayIngresos();
   }
 
+  @Get('fecha/week')
+  getWeeklyIngresos(){
+    return this.ingresoService.getWeeklyIngresos();
+  }
+
   @Get('fecha/month')
   getMonthlyIngresos(){
     return this.ingresoService.getMonthlyIngresos();
