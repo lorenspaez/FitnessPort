@@ -98,29 +98,20 @@ export class IngresoService {
     let lastday = today.getDate() - (today.getDay() - 1) + 6;
     let sunday =  new Date(today.setDate(lastday));
     let monday = new Date(sunday.getDate() - (today.getDay() - 6));
-
+    console.log(sunday);
+    console.log(monday);
     return await this.prisma.ingreso.findMany({
       where:{
-        AND:[
-          {
-            createdAt:{
-              gte: monday,
-            }
-          },
-          {
-            createdAt:{
-              lte: sunday,
-            }
-          }
-        ]
+        createdAt:{
+          gte: monday,
+          lte: sunday,
+        },
       },
       orderBy:{
         createdAt: 'desc'
       },
     });
   }
-
-  
 
   async getMonthlyIngresos(){
     let month = new Date().toISOString().slice(0, 7)
