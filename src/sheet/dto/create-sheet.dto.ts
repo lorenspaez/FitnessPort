@@ -12,6 +12,9 @@ export class CreateSheetDto {
   customerRut: string;
 
   @IsOptional()
+  fechaControl: string;
+  
+  @IsOptional()
   peso: string;
 
   @IsOptional()
