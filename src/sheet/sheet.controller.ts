@@ -2,6 +2,7 @@ import { Post, Body,Controller,Get,Patch,UseGuards, Delete, HttpCode,ParseIntPip
 import { JwtGuard } from '../auth/guard';
 import { CreateSheetDto, EditSheetDto} from './dto';
 import { SheetService } from './sheet.service';
+import { GetUser } from '../auth/decorator';
 
 @UseGuards(JwtGuard)
 @Controller('sheets')
@@ -11,8 +12,10 @@ export class SheetController {
   @Post()
   createSheet(
     @Body() dto: CreateSheetDto,
+    @GetUser('id') userId: number,
+    @GetUser('name') userName: string,
   ) {
-    return this.sheetService.createSheet(dto);
+    return this.sheetService.createSheet(dto, userId, userName);
   }
 
   @Get(':rut')
@@ -30,9 +33,11 @@ export class SheetController {
   @Patch('edit/:id')
   editSheet(
     @Param('id', ParseIntPipe) id: number,
-    @Body() dto: EditSheetDto
+    @Body() dto: EditSheetDto,
+    @GetUser('id') userId: number,
+    @GetUser('name') userName: string,
     ) {
-    return this.sheetService.editSheet(id, dto);
+    return this.sheetService.editSheet(id, dto, userId, userName);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)

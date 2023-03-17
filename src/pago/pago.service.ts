@@ -7,7 +7,7 @@ import { UpdatePagoDto } from './dto/update-pago.dto';
 export class PagoService {
   constructor(private prisma: PrismaService) {}
 
-  async createPago(dto: CreatePagoDto){
+  async createPago(dto: CreatePagoDto, userId: number, userName: string){
     const customer = await this.prisma.customer.findFirst({
       where:{
         rut: dto.customerRut,
@@ -24,6 +24,8 @@ export class PagoService {
       data:{
         customerId: customer.id,
         customerName: customer.name,
+        adminId: userId,
+        adminName: userName,
         ...dto
       },
     });
@@ -67,6 +69,8 @@ export class PagoService {
   async editPago(
     pagoId: number,
     dto: UpdatePagoDto,
+    userId: number, 
+    userName: string
   ) {
 
     return await this.prisma.pago.update({
@@ -75,6 +79,8 @@ export class PagoService {
       },
       data: {
         ...dto,
+        adminId: userId,
+        adminName: userName,
       },
     });
   }

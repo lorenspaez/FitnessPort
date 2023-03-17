@@ -7,8 +7,7 @@ import { PrismaService } from '../prisma/prisma.service';
 export class IngresoService {
   constructor(private prisma: PrismaService) {}
 
-  async createIngreso(dto: CreateIngresoDto){
-
+  async createIngreso(dto: CreateIngresoDto, userId: number, userName: string){
     const customer = await this.prisma.customer.findUnique({
       where:{
         rut: dto.customerRut
@@ -27,6 +26,8 @@ export class IngresoService {
           customerId: customer.id,
           customerName: customer.name,
           correctAccess: true,
+          adminId: userId,
+          adminName: userName,
           ...dto
         },
       });  
@@ -37,6 +38,7 @@ export class IngresoService {
         customerId: customer.id,
         customerName: customer.name,
         correctAccess: false,
+        adminId: userId,
         ...dto
       },
     });        

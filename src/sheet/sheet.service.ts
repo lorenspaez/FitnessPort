@@ -1,5 +1,4 @@
 import { Injectable , ForbiddenException } from '@nestjs/common';
-import { doesNotThrow } from 'assert';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateSheetDto, EditSheetDto} from './dto';
 
@@ -7,7 +6,7 @@ import { CreateSheetDto, EditSheetDto} from './dto';
 export class SheetService {
   constructor(private prisma: PrismaService) {}
 
-  async createSheet(dto: CreateSheetDto){
+  async createSheet(dto: CreateSheetDto, userId: number, userName: string){
     const customer = await this.prisma.customer.findFirst({
       where:{
         rut: dto.customerRut,
@@ -23,6 +22,8 @@ export class SheetService {
       data:{
         customerId: customer.id,
         customerName: customer.name,
+        adminId: userId,
+        adminName: userName,
         ...dto
       },
     });
@@ -66,6 +67,7 @@ export class SheetService {
   async editSheet(
     sheetId: number,
     dto: EditSheetDto,
+    userId: number, userName: string
   ) {
     return await this.prisma.sheet.update({
       where: {
@@ -73,6 +75,8 @@ export class SheetService {
       },
       data: {
         ...dto,
+        adminId: userId,
+        adminName: userName,
       },
     });
   }

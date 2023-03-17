@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus
 import { JwtGuard } from '../auth/guard';
 import { IngresoService } from './ingreso.service';
 import { CreateIngresoDto, UpdateIngresoDto} from './dto';
+import { GetUser } from '../auth/decorator';
 
 @UseGuards(JwtGuard)
 @Controller('ingresos')
@@ -10,9 +11,11 @@ export class IngresoController {
 
   @Post()
   createIngreso(
+    @GetUser('id') userId: number,
+    @GetUser('name') userName: string,
     @Body() dto: CreateIngresoDto
   ) {
-    return this.ingresoService.createIngreso(dto);
+    return this.ingresoService.createIngreso(dto, userId, userName);
   }
 
   @Get()

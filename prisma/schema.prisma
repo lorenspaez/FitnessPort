@@ -21,6 +21,11 @@ model User{
   rut String @unique
   hash String
 
+  clientes Customer[] 
+  ingresos Ingreso[]
+  pagos Pago[]
+  fichas Sheet[]
+  
   @@map("users")
 }
 
@@ -41,6 +46,9 @@ model Customer{
   observation String?
   objective String?
   agreement String?
+  adminId Int?
+  adminName String?
+  admin User? @relation(fields: [adminId], references: [id])
   ingresos Ingreso[]
   pagos Pago[]
   fichas Sheet[]
@@ -57,6 +65,9 @@ model Ingreso{
   customerRut String
   customerName String?
   correctAccess Boolean?
+  adminId Int?
+  adminName String?
+  admin User? @relation(fields: [adminId], references: [id])
   author Customer? @relation(fields: [customerId], references: [id])
   @@map("ingresos")
 }
@@ -80,6 +91,10 @@ model Sheet{
   grasaVisceral String?
   calorias String?
 
+  adminId Int?
+  adminName String?
+
+  admin User? @relation(fields: [adminId], references: [id])
   customer Customer? @relation(fields: [customerId], references: [id])
   @@map("sheets")
 }
@@ -101,7 +116,10 @@ model Pago{
   medioPago String?
   descuentoEmpresa String?
   vencimientoPago String?
+  adminId Int?
+  adminName String?
 
+  admin User? @relation(fields: [adminId], references: [id])
   customer Customer? @relation(fields: [customerId], references: [id])
   @@map("pagos")
 }

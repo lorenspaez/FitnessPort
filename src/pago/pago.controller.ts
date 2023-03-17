@@ -3,6 +3,7 @@ import { PagoService } from './pago.service';
 import { JwtGuard } from '../auth/guard';
 import { CreatePagoDto } from './dto/create-pago.dto';
 import { UpdatePagoDto } from './dto/update-pago.dto';
+import { GetUser } from '../auth/decorator';
 
 @UseGuards(JwtGuard)
 @Controller('pagos')
@@ -12,8 +13,10 @@ export class PagoController {
   @Post()
   createPago(
     @Body() dto: CreatePagoDto,
+    @GetUser('id') userId: number,
+    @GetUser('name') userName: string,
   ) {
-    return this.pagoService.createPago(dto);
+    return this.pagoService.createPago(dto, userId, userName);
   }
 
   @Get(':rut')
@@ -31,9 +34,11 @@ export class PagoController {
   @Patch('edit/:id')
   editPago(
     @Param('id', ParseIntPipe) id: number,
-    @Body() dto: UpdatePagoDto
+    @Body() dto: UpdatePagoDto,
+    @GetUser('id') userId: number,
+    @GetUser('name') userName: string,
     ) {
-    return this.pagoService.editPago(id, dto);
+    return this.pagoService.editPago(id, dto, userId, userName);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)

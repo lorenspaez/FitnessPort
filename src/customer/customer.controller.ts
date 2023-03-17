@@ -2,6 +2,7 @@ import { Post, Body,Controller,Get,Patch,UseGuards, Delete, HttpCode, HttpStatus
 import { JwtGuard } from '../auth/guard';
 import { CreateCustomerDto, EditCustomerDto} from './dto';
 import { CustomerService } from './customer.service';
+import { GetUser } from '../auth/decorator';
 
 @UseGuards(JwtGuard)
 @Controller('customers')
@@ -10,9 +11,11 @@ export class CustomerController {
 
   @Post()
   createCustomer(
+    @GetUser('id') userId: number,
+    @GetUser('name') userName: string,
     @Body() dto: CreateCustomerDto,
   ) {
-    return this.customerService.createCustomer(dto);
+    return this.customerService.createCustomer(dto, userId, userName);
   }
 
   @Get(':rut')
@@ -39,10 +42,12 @@ export class CustomerController {
     
   @Patch('edit/:rut')
   editCustomer(
+    @GetUser('id') userId: number,
+    @GetUser('name') userName: string,
     @Param('rut') rut: string,
     @Body() dto: EditCustomerDto
     ) {
-    return this.customerService.editCustomer(rut, dto);
+    return this.customerService.editCustomer(rut, dto, userId, userName);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)

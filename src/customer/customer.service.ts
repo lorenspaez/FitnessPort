@@ -6,9 +6,11 @@ import { CreateCustomerDto, EditCustomerDto} from './dto';
 export class CustomerService {
   constructor(private prisma: PrismaService) {}
 
-  async createCustomer(dto: CreateCustomerDto){
+  async createCustomer(dto: CreateCustomerDto, userId: number, userName: string){
     return await this.prisma.customer.create({
       data:{
+        adminId: userId,
+        adminName: userName,
         ...dto
       },
     });
@@ -71,12 +73,16 @@ export class CustomerService {
   async editCustomer(
     customerRut: string,
     dto: EditCustomerDto,
+    userId: number,
+    userName: string    
   ) {
     const customer = await this.prisma.customer.update({
       where: {
         rut: customerRut,
       },
       data: {
+        adminId: userId,
+        adminName: userName,
         ...dto,
       },
     });
