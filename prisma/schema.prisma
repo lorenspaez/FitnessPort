@@ -90,6 +90,7 @@ model Sheet{
   porcMusculo String?
   grasaVisceral String?
   calorias String?
+  fechaControl String?
 
   adminId Int?
   adminName String?
