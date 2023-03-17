@@ -30,6 +30,21 @@ export class PagoController {
   getAllPagos() {
     return this.pagoService.getAllPagos();
   }
+
+  @Get('fecha/today')
+  getTodayPagos(){
+    return this.pagoService.getTodayPagos();
+  }
+
+  @Get('fecha/week')
+  getWeeklyPagos(){
+    return this.pagoService.getWeeklyPagos();
+  }
+
+  @Get('fecha/month')
+  getMonthlyPagos(){
+    return this.pagoService.getMonthlyPagos();
+  }
     
   @Patch('edit/:id')
   editPago(
