@@ -39,6 +39,7 @@ export class IngresoService {
         customerName: customer.name,
         correctAccess: false,
         adminId: userId,
+        adminName: userName,
         ...dto
       },
     });        
@@ -96,8 +97,6 @@ export class IngresoService {
     let today = new Date();    
     let sunday =  new Date(today.setDate(today.getDate() - (today.getDay() - 1) + 6));
     let monday = new Date(today.setDate(today.getDate() - today.getDay() + (today.getDay() == 0 ? -6:1)));
-    console.log(sunday);
-    console.log(monday);
     return await this.prisma.ingreso.findMany({
       where:{
         createdAt:{
