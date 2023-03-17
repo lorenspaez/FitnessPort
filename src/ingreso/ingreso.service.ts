@@ -79,13 +79,11 @@ export class IngresoService {
   }
 
   async getTodayIngresos(){
-    let today = new Date().toISOString().slice(0, 10);
-    let today_ = new Date(today);
+    let today = new Date(new Date().toISOString().slice(0, 10));
     return await this.prisma.ingreso.findMany({
       where:{
         createdAt:{
-          gte: today_,
-          
+          gte: today,
         },
       },
       orderBy:{
@@ -95,18 +93,16 @@ export class IngresoService {
   }
 
   async getWeeklyIngresos(){
-
-    let today = new Date();
-    let lastday = today.getDate() - (today.getDay() - 1) + 6;
-    let sunday =  new Date(today.setDate(lastday));
-    let monday = new Date(sunday.getDate() - (today.getDay() - 6));
+    let today = new Date();    
+    let sunday =  new Date(today.setDate(today.getDate() - (today.getDay() - 1) + 6));
+    let monday = new Date(today.setDate(today.getDate() - today.getDay() + (today.getDay() == 0 ? -6:1)));
     console.log(sunday);
     console.log(monday);
     return await this.prisma.ingreso.findMany({
       where:{
         createdAt:{
-          gte: monday,
           lte: sunday,
+          gte: monday,
         },
       },
       orderBy:{
@@ -116,12 +112,11 @@ export class IngresoService {
   }
 
   async getMonthlyIngresos(){
-    let month = new Date().toISOString().slice(0, 7)
-    let month_ = new Date(month);
+    let month = new Date(new Date().toISOString().slice(0, 7));
     return await this.prisma.ingreso.findMany({
       where:{
         createdAt:{
-          gte: month_,
+          gte: month,
         },
       },
       orderBy:{
