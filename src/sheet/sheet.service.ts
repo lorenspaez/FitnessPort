@@ -59,7 +59,7 @@ export class SheetService {
       where: {
       },
       orderBy:{
-        id: 'asc',
+        id: 'desc',
       },
     });
   }
