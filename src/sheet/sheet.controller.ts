@@ -43,8 +43,9 @@ export class SheetController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   deleteSheetByRut(
+    @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) id: number
     ) {
-    return this.sheetService.deleteSheetById(id);
+    return this.sheetService.deleteSheetById(userId, id);
   }
 }

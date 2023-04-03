@@ -59,8 +59,9 @@ export class PagoController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   deletePagoByRut(
+    @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) id: number
     ) {
-    return this.pagoService.deletePagoByRut(id);
+    return this.pagoService.deletePagoByRut(userId, id);
   }
 }

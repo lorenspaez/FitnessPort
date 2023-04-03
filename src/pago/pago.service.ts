@@ -131,8 +131,14 @@ export class PagoService {
   }
 
   async deletePagoByRut(
+    userId: number,
     pagoId: number
   ) {
+    if(userId != 2){
+      throw new ForbiddenException(
+        'Solo el Administrador puede borrar Registros',
+      );
+    }
     return this.prisma.pago.delete({
       where: {
         id: pagoId,

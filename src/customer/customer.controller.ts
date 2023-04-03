@@ -53,8 +53,9 @@ export class CustomerController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':rut')
   deleteCustomerByRut(
+    @GetUser('id') userId: number,
     @Param('rut') rut: string
     ) {
-    return this.customerService.deleteCustomerByRut(rut);
+    return this.customerService.deleteCustomerByRut(userId, rut);
   }
 }

@@ -98,8 +98,14 @@ export class CustomerService {
   }
 
   async deleteCustomerByRut(
+    userId: number,
     customerRut: string
   ) {
+    if(userId != 2){
+      throw new ForbiddenException(
+        'Solo el Administrador puede borrar Registros',
+      );
+    }
     await this.prisma.customer.delete({
       where: {
         rut: customerRut,

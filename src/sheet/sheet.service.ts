@@ -82,9 +82,14 @@ export class SheetService {
   }
 
   async deleteSheetById(
+    userId: number,
     sheetId: number
   ) {
-
+    if(userId != 2){
+      throw new ForbiddenException(
+        'Solo el Administrador puede borrar Registros',
+      );
+    }
     await this.prisma.sheet.delete({
       where: {
         id: sheetId,
